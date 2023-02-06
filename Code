@@ -1,0 +1,81 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main() {
+  // Game constants
+  const int HEALTH = 100;
+  const int MONSTER_HEALTH = 100;
+  const int LEVELS = 4;
+  const string LEVEL_NAMES[LEVELS] = {
+    "Fire World",
+    "Magma World",
+    "Raging Heat World",
+    "Zalama World"
+  };
+  const string MONSTER_NAMES[LEVELS] = {
+    "Minion Monster",
+    "Master Monster",
+    "Major Monster",
+    "Supreme Leader Xi"
+  };
+  const int MONSTER_HEALTH_INCREASE = 20;
+
+  // Introduction
+  cout << "Welcome to the Under World!" << endl;
+  cout << "You are a brave adventurer on a quest to defeat four monsters." << endl;
+
+  // Game variables
+  int player_health = HEALTH;
+
+  // Game loop
+  for (int level = 0; level < LEVELS; level++) {
+    // Level setup
+    player_health = HEALTH;
+    int monster_health = MONSTER_HEALTH + (level * MONSTER_HEALTH_INCREASE);
+    cout << "\n--- " << LEVEL_NAMES[level] << " ---" << endl;
+    cout << "You face the " << MONSTER_NAMES[level] << " with " << monster_health << " health points." << endl;
+    cout << "You have " << player_health << " health points." << endl;
+    cout << "You can either 'attack' or 'heal' on each turn." << endl;
+
+    // Battle loop
+    while (player_health > 0 && monster_health > 0) {
+      // Player turn
+      string action;
+      cout << "What do you want to do? (attack/heal) ";
+      cin >> action;
+
+      if (action == "attack") {
+        monster_health -= 10;
+        cout << "You attacked the monster and did 10 damage. The monster has " << monster_health << " health points left." << endl;
+      } else if (action == "heal") {
+        player_health += 15;
+        cout << "You healed yourself and gained 15 health points. You now have " << player_health << " health points." << endl;
+      } else {
+        cout << "Invalid action. Please enter 'attack' or 'heal'." << endl;
+      }
+
+      // Monster turn
+      player_health -= 10;
+      cout << "The monster attacked you and did 10 damage. You now have " << player_health << " health points." << endl;
+    }
+
+    // Level result
+    if (player_health <= 0) {
+      cout << "You lost! Better luck next time." << endl;
+      break;
+    } else {
+      cout << "You defeated the monster!" << endl;
+    }
+  }
+
+ 
+
+  // Game over
+  if (player_health > 0) {
+    cout << "\nYou won the game! Congratulations." << endl;
+  }
+
+  return 0;
+}
